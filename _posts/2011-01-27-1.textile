@@ -15,7 +15,7 @@ The first thing I needed to do was to add a calculated property on the model obj
 
 Following is the full data-model for the tree items:
 
-{% highlight JavaScript %}
+{% highlight javascript %}
 EurekaJView.InstrumentationTreeModel = SC.Record.extend(
 /** @scope EurekaJView.InstrumentationTreeModel.prototype */
 {
@@ -62,7 +62,7 @@ The images, as the code suggest is placed inside /resources/images and named acc
 
 The view in question is a SC.ListView, an in order to customize the way each row is shown, it is necessary to define an exampleView for the list like so: 
 
-{% highlight JavaScript %}
+{% highlight javascript %}
 instrumentationTreeScrollView: SC.ScrollView.extend({
             isVisible: NO,
             layout: {
@@ -95,7 +95,7 @@ instrumentationTreeScrollView: SC.ScrollView.extend({
 
 The last missing piece is the implementation of EurekaJView.InstrumentationTreeListItem. As this class extends the SC.ListItemView the implementation is rather simple with only a single binding to the "itemIcon" calculated property from above:
 
-{% highlight JavaScript %}
+{% highlight javascript %}
 EurekaJView.InstrumentationTreeListItem = SC.ListItemView.extend(
     /** @scope EurekaJView.InstrumentationTreeListItem.prototype */ {
 
