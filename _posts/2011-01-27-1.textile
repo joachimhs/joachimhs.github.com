@@ -5,7 +5,7 @@ layout: post
 
 In the SproutCore client I wanted to display a customized icon for the leaf nodes, depending on the type of node. Each node has a "nodeType" parameter that can either be "chart", "alert" og "groupedStatistic", and I wanted to display a custom icon for each of the different nodes like this:  
 
-<img src="http://confluence.haagen.name/download/attachments/2457630/nodeicons.png?version=1&modificationDate=1296128780273"/>
+<img src="/images/sproutcore_treenode1.png" />
 
 As you can see from the image above, the chart nodes have a image of a chart, the alert node of a warning triangle while the Grouped Statistics node has an icon with a "G" in it. 
 
