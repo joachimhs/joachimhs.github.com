@@ -164,4 +164,4 @@ maven-exec-plugin:
 {% endhighlight %}
 
 <h2>Source Code</h2>
-The complete source code is availble on Github: https://github.com/joachimhs/EurekaJ
+The complete source code is availble on Github: <a href="https://github.com/joachimhs/EurekaJ">https://github.com/joachimhs/EurekaJ</a>
