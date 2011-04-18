@@ -21,7 +21,7 @@ In order to get garcon up and running you first need to install garcon and node.
 <h2>Installing garcon for the SC 1.4.4 STABLE branch</h2>
 The main garcon source is avaible at GitHub at https://github.com/martoche/garcon. I wanted to place garcon inside my project, and so decided to clone garcon into a subfolder named "garcon" into my main Sproutcore project directory by issuing the following command. which is really all that is needed to "install" garcon:
 
-{% highlight %}
+{% highlight javascript %}
 git clone https://github.com/martoche/garcon.git garcon
 {% endhighlight %}
 
@@ -30,7 +30,7 @@ Note: Due to some changes between 1.4.4 and the master branch of Sproutcore, if 
 Installing garcon for the SC master branch
 The master SC branch is the branch that includes Sproutcore 1.5. Maurits Lamers has made a fork of martoche's code to fix some build issues related to the 1.5 release of SC. Maurits Lamers fork is available here: https://github.com/mauritslamers/garcon. Clone Garcon in the same manner as above using the git clone command:
 
-{% highlight %}
+{% highlight javascript %}
 git clone https://github.com/mauritslamers/garcon.git garcon
 {% endhighlight %}
 
@@ -45,7 +45,7 @@ For this particular build, I am choosing to combine all JavaScript and CSS into 
 
 Finally I am adding a little bit of HTML to the generated HTML file before I fire off the build using myApp.save(); The complete buildfile is included below.
 
-{% highlight javascript %}
+{% highlight javascript javascript %}
 var g = require('./garcon/lib/garçon'),
     server, myApp;
 
@@ -111,7 +111,7 @@ myApp.build(function() {
 <h2>Executing the Garcon build with node.js</h2>
 After everything is installed and the Garcon buildfile is set up properly, all that is needed to execute the build is the following command.
 
-{% highlight %}
+{% highlight javascript %}
 node garcon-buildfile.js
 {% endhighlight %}
 
@@ -126,7 +126,7 @@ To perform the Garcon build I wrote a shell script that conforms to the requirem
 
 build_dev.sh:
 
-{% highlight %}
+{% highlight javascript %}
 #!/bin/bash
 
 rm -r ../EurekaJ.Manager/src/main/webapp/eurekaJView
