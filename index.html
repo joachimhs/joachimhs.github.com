@@ -5,13 +5,16 @@ title: Home
 
 <div class='home_box' id='home_left'>
   <h2>
-    Latest Post
+    Latest Posts
   </h2>
 
-  <div class='post'>
-    <h1><a href='{{site.posts.first.url}}'>{{site.posts.first.title}}</a></h1>
-    <div class='body'>{{ site.posts.first.content }}</div>
-  </div>
+	{% for post in site.posts %}
+	    <div class="post">
+	      <div class="title"><a href="{{ post.url }}">{{ post.title }}</a></div>
+	      <div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
+	      <div class="extract">{{post.content | strip_html | truncatewords:80}}</div>
+	    </div>
+	{% endfor %}
 </div>
 <div class='home_box' id='home_right'>
   <h2>Featured Projects</h2>
