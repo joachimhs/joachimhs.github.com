@@ -29,6 +29,21 @@ a:visited {
   border-radius: 1.5em;
 }
 
+
+#headerLinks {
+  text-align: left;
+  background: #171717;
+}
+
+#headerLinks a {
+  font-size: 1em;
+  display: inline;
+  letter-spacing: 0.11em;
+  color: #fff;
+  padding-right: 1.0em;
+  font-weight: normal;
+}
+
 #header {
   text-align: left;
   background: #171717;
