@@ -10,9 +10,9 @@ title: Home
 
 	{% for post in site.posts %}
 	    <div class="post">
-	      <div class="title"><a href="{{ post.url }}">{{ post.title }}</a></div>
-	      <div class="date">{{ post.date | date: "%B %d, %Y" }}</div>
-	      <div class="extract">{{post.content | strip_html | truncatewords:80}}</div>
+	      <div class="title"><h2><a href="{{ post.url }}">{{ post.title }}</a></h2></div>
+	      <div class="date">{{ post.date | date: "%B %d, %Y" }}</div><br />
+	      <div class="extract">{{post.content | strip_html | truncatewords:120}}</div>
 	    </div>
 	{% endfor %}
 </div>
