@@ -3,7 +3,7 @@ title: Implementing the EurekaJ Statechart in SproutCore
 layout: post
 ---
 
-<h2>Why implement Statecharts ?<h2>
+<h2>Why implement Statecharts ?</h2>
 	
 Have you ever been frustrated about the number of code lines that you have in you Model-View-Controller application (MVC) for managing the current state of the application ? Is determining the overall state of the application hard to figure out, and generally a mess to debug ? Does your GUI tend to show the wrong panels, have overlapping panels and in general have recurring bugs with its state ? Then Statecharts are the way to go to achieve a cleaner, testable and less error-prone GUI. 
 
