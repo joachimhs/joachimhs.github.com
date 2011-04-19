@@ -1,5 +1,5 @@
 --- 
-title: Implementing the EurekaJ Statechart in SproutCore
+title: Integrating a Sproutcore client in a deployable .WAR file
 layout: post
 ---
 
