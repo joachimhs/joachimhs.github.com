@@ -192,28 +192,12 @@ font-size: 12px;
 letter-spacing: 0;
 }
 
-table.post-list {
-width: 100%;
-border-collapse: collapse;
+#table {
+	width 900px;
 }
 
-table.post-list a {
-color: #262;
-font-weight: bold;
-}
-
-table.post-list th {
-text-align: left;
-}
-
-table.post-list td, table.post-list th {
-padding: 0.5em 0.3em;
-border-bottom: 1px solid #dba;
-}
-
-table.post-list tr:last-child td, table.post-list tr:last-child th {
-border-bottom: 0;
-}
+#table tr:nth-child(odd) td{ background-color:#ccc; }
+#table tr:nth-child(even) td{ background-color:#eee; }
 
 div.related {
 margin-bottom: 2em;
