@@ -81,6 +81,10 @@ I have decided to make AMIs available for the configuration above. The AMI creat
 
 <div style="text-align: center;"><img src="/images/eurekaj_ami_selection.png"/></div>
 
+h3. Downloading EurekaJ
+
+If you wish to download and install EurekaJ yourself, EurekaJ can be downloaded from here: <a href="http://eurekaj.haagen.name/download.html">http://eurekaj.haagen.name/download.html</a>.
+
 h3. And the cost ? 
 
 As everything here is Free and Open Source Software (FOSS), the cost is limited to only the cost of the Amazon EC2 instance. I would estimate the total monthly cost for running EurekaJ on an EC2 small instance to be roughly 65-70 USD per month, or about USD 25-30 if you run on a reserved instance. 
