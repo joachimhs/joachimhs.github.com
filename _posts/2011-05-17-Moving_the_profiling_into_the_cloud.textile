@@ -36,6 +36,8 @@ The EurekaJ Profiler is configured to run on an Amazon EC2 small instance. This 
 
 After creating a new 32 bit EC2 small instance via the Amazon AWS control-panel, I needed to add extra EBS storage space to the EC2 instance. The standard EC2 instance comes with a preconfigured 8GB EBS image, but I wanted to increase this to 20 GB. Also via the EC2 control panel, I created a new EBS with 20GB of storage and attached this to the EC2 instance running EurekaJ Manager. After assigning the EBS to the EC2 intstance, I also needed to format the EBS and mount it somewhere on the EC2 filesystem, I decided that /mnt/ed-20110517 would be a suitable directory to store the EurekaJ data. 
 
+<b>DO NOT simply copy an paste the text below. Make sure that you are using the correct device, so that you do not format the wrong EBS!</b>
+
 {% highlight bash %}
 mkfs.ext3 /dev/sdh #This was the 20GB EBS created for EurekaJ Data
 sudo mkdir /mnt/ed-20110517 #Creating a new directory to hold the EurekaJ Data
