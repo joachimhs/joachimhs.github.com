@@ -3,7 +3,7 @@ title: The Client-side Rich Internet Application MVC model
 layout: post
 ---
 
-Disclamer: This blog-post is adapted from my talk about "Building Rich Internet Applications using SproutCore and Cappuccino", which I held at <a href="http://rootsconf.no/talks/5">The Roots Conference</a> in Bergen the 24th of May 2011. 
+Disclamer: This blog-post is adapted from my talk about "Building Rich Internet Applications using SproutCore and Cappuccino", which I held at <a href="http://rootsconf.no/talks/5">The Roots Conference</a> in Bergen the 24th of May 2011. The slides from the talk are available on <a href="http://public.iwork.com/document/?d=SproutCore_and_Capp,_Roots2011.key&a=p9380587">iWork.com</a>.
 
 ---
 
