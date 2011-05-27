@@ -1,6 +1,6 @@
 --- 
 title: SproutCore Statecharts
-layout: post
+layout: localpost
 ---
 
 In its most simple form statecharts is a way to structure your application into logical states. In reality a statechart does not need to be implemented in code, but it makes it easier to comply to the defined statechart if you are able to create or use a framework that defines what is possible to do witin a state, how the application can transition from one state to another and finally what needs to be set up and torn down on state entry and state exit. From version 1.5 SproutCore has a fantastic StateChart framework built right into the library itself. 
