@@ -1,0 +1,23 @@
+--- 
+title: SproutCore Statecharts
+layout: post
+---
+
+In its most simple form statecharts is a way to structure your application into logical states. In reality a statechart does not need to be implemented in code, but it makes it easier to comply to the defined statechart if you are able to create or use a framework that defines what is possible to do witin a state, how the application can transition from one state to another and finally what needs to be set up and torn down on state entry and state exit. From version 1.5 SproutCore has a fantastic StateChart framework built right into the library itself. 
+
+How many and how involved your application states are will differ from application to application. There are many ways to structure a statechart application. The statechart needs to have one and only one root state, which you can think of as the initial state of your application. 
+
+There are a number of key factors that needs to be included in each state, so that the states can be combined into a statechart. 
+
+* A single state needs to have exactly one clearly defined entrypoint
+* A single state needs to have at least one clearly defined exitpoint
+* A single state needs to be able to set up everything required within that state upon state entry
+* A single state needs to be able to tear down anything that is state-specific upon state entry
+
+Notice that in the above list, no state needs to know about any other states. Of course, there is an exeption to this rule when states are nested. If you use nested states then you also need to adhere to the following rule:
+
+* A nested state only needs to know about one other state, its parent state
+
+Note that the above can be considered my guidelines. Its most certainly possible to brake any of the above requirements inside the SC Statechart code, however be prepared that the end result is messy/spaghetti code, no clear separation of concerns or worse, both. There are many code examples online where each state has defined which other states that it can transition to. I agree that this should be made very clear in the diagram-form of the statechart, but personally, I like to place the state transitions outside of the statechart itself. The reason for this is lies in the following assumptions for GUI applications: 
+
+* Any application state transition is possible at any time during the applications lifetime
