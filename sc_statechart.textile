@@ -45,3 +45,23 @@ h3. Implementing a statechart application
 Now, lets looks at the actual implementation of a Statechart application. For this blog post I will be looking at a portion of the EurekaJ Statechart implementation. In EurekaJ the actual login and authentication of the application is handled outside of SproutCore (by Spring Batch on the Java backend), and so we will make the assumption that the user already is pre-authenticated. Before we get started though, there are a few key symbols that you need to get acquainted with. 
 
 <div style="text-align: center;"><img src="/images/sc_statecharts_2.png"/></div>
+
+To get started discussing the statechart implementation, lets first describe how the Graphical User Interface works in the EurekaJ application. The application is split into four main parts. The top-hand panel responsible for displaying the application logo, as well as a toolbar. The toolbar currently only has a single item, a button that will activate the administration panel. On the left hand side of the application there is a sidebar responsible for showing a tree-structure which consists of all nodes that the application is able to display visual charts for. On the right hand side there is an information panel that currently has two responsibilities: letting the user select which time-period to display charts for, as well as listing any recent alerts triggered by the system. In the center, the main area of the application, the application will display any of the charts selected in the tree menu at the left, for the time period chosen in the time-period panel to the right. Schematically the application looks like the diagram below.
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_3.png"/></div>
+
+We can immediately identify 6 states that concurrently needs to be displayed on the screen, each of which needs to be active and ready for user input.
+
+* rootState
+** showTopPanel
+*** showAdministrationPanel
+**** showAlertAdminTab
+**** showChartGroupAdminTab
+**** showEmailAdminTab
+** showTreePanel
+** showChartPanel
+** showInformationPanel
+*** showTimeperiodPanel
+**** showLiveTab
+**** showHistoricalTab
+*** showRecentAlertsPanel
