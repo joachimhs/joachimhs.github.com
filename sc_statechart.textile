@@ -3,11 +3,11 @@ title: SproutCore Statecharts
 layout: localmaster
 ---
 
-In its most simple form statecharts is a way to structure your application into logical states. In reality a statechart does not need to be implemented in code, but it makes it easier to comply to the defined statechart if you are able to create or use a framework that defines what is possible to do witin a state, how the application can transition from one state to another and finally what needs to be set up and torn down on state entry and state exit. From version 1.5 and onwards of SproutCore, there is a fantastic Statechart framework built right into the library itself conveniently called SC.Statechart.
+In its most simple form statecharts is a way to structure your application into logical states. In reality a statechart does not need to be implemented in code, but it makes it easier to comply to the defined statechart if you are able to create or use a framework that defines what is possible to do within a state, how the application can transition from one state to another and finally what needs to be set up and torn down on state entry and state exit. From version 1.5 and onwards of SproutCore, there is a fantastic Statechart framework built right into the library itself conveniently called SC.Statechart.
 
 h3. To statechart or not to statechart ?
 
-For me there are a couple of main reasons for using statecharts. First fo all the fact that you take time to sit down and think about your applications possible states makes you also think long and hard about the actual desing of your application. Splitting a large application into logical (and smaller) states also makes the task of breaking functional requirements down into manageable parts easier when the time comes to plan and develop the application. And as a final bonus you end up with a finished application that has one killer feature: *separation of concerns between application domains*. That last part alone should make you want to invest in using statecharts for your application: cleaner code and less spaghetti. 
+For me there are a couple of main reasons for using statecharts. First of all the fact that you take time to sit down and think about your applications possible states makes you also think long and hard about the actual design of your application. Splitting a large application into logical (and smaller) states also makes the task of breaking functional requirements down into manageable parts easier when the time comes to plan and develop the application. And as a final bonus you end up with a finished application that has one killer feature: *separation of concerns between application domains*. That last part alone should make you want to invest in using statecharts for your application: cleaner code and less spaghetti. 
 
 h3. The state of the game
 
@@ -15,12 +15,12 @@ There are many ways to structure a statechart application. The statechart needs 
 
 There are a number of key factors that needs to be included in each state, so that the states can be combined into a statechart. 
 
-* A single state needs to have exactly one clearly defined entrypoint
-* A single state needs to have at least one clearly defined exitpoint
+* A single state needs to have exactly one clearly defined entry point
+* A single state needs to have at least one clearly defined exit point
 * A single state needs to be able to set up everything required within that state upon state entry
 * A single state needs to be able to tear down anything that is state-specific upon state entry
 
-Notice that in the above list, no state needs to know about any other states. Of course, there is an exeption to this rule when states are nested. If you use nested states then you also need to adhere to the following rule:
+Notice that in the above list, no state needs to know about any other states. Of course, there is an exception to this rule when states are nested. If you use nested states then you also need to adhere to the following rule:
 
 * A nested state only needs to know about one other state, its parent state
 
@@ -28,3 +28,20 @@ Note that the above can be considered my guidelines. Its most certainly possible
 
 * Any application state transition is possible at any time during the applications lifetime
 
+h3. Statecharts and the MVC model
+
+Since Statecharts will make up a large portion of you applications architecture, where does it fit into the SproutCore MVC model, and will a Statechart-built application really be something like an MVCS (Model-View-Controller-Statechart) model ? The answer to the first question is that Statecharts fits in beautifully with the SC MVC model. The answer to the MVCS question is as it should be: it depends on your viewpoint. 
+
+Without statecharts, the SproutCore MVC model looks like the diagram below. 
+
+<div style="text-align: center;"><img src="/images/ria_mvc_4.png"/></div>
+
+In my opinion a statechart belongs within the Controller-portion of the MVC model, and might look something like the diagram below. Note that both the "Action" and the "Statechart" portions of the Controller-layer in the diagram below is application-wide, while the "Controller" portion of the Controller-layer refers to the controller that the view binds to (usually a SC.ListController, SC.ItemController, etc.,  or a custom made controller). 
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_1.png"/></div>
+
+h3. Implementing a statechart application
+
+Now, lets looks at the actual implementation of a Statechart application. For this blog post I will be looking at a portion of the EurekaJ Statechart implementation. In EurekaJ the actual login and authentication of the application is handled outside of SproutCore (by Spring Batch on the Java backend), and so we will make the assumption that the user already is pre-authenticated. Before we get started though, there are a few key symbols that you need to get acquainted with. 
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_2.png"/></div>
