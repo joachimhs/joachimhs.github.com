@@ -16,7 +16,7 @@ There are many ways to structure a statechart application. The statechart needs 
 There are a number of key factors that needs to be included in each state, so that the states can be combined into a statechart. 
 
 * A single state needs to have exactly one clearly defined entry point
-* A single state needs to have at least one clearly defined exit point
+* A single state needs to have at least one clearly defined exit point (the possible transitions available)
 * A single state needs to be able to set up everything required within that state upon state entry
 * A single state needs to be able to tear down anything that is state-specific upon state entry
 
