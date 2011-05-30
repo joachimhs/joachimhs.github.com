@@ -50,18 +50,87 @@ To get started discussing the statechart implementation, lets first describe how
 
 <div style="text-align: center;"><img src="/images/sc_statecharts_3.png"/></div>
 
-We can immediately identify 6 states that concurrently needs to be displayed on the screen, each of which needs to be active and ready for user input.
+We can immediately identify 6 states that concurrently needs to be displayed on the screen, each of which needs to be active and ready for user input. For my application I decided to make the four state "showingTopPanel", "showingTreePanel", "showingChartPanel" and "showingInformationPanel" concurrent states. 
 
-* rootState
-** showTopPanel
-*** showAdministrationPanel
-**** showAlertAdminTab
-**** showChartGroupAdminTab
-**** showEmailAdminTab
-** showTreePanel
-** showChartPanel
-** showInformationPanel
-*** showTimeperiodPanel
-**** showLiveTab
-**** showHistoricalTab
-*** showRecentAlertsPanel
+<div style="text-align: center;"><img src="/images/sc_statecharts_4.png"/></div>
+
+The statechart implementation in the file _core_statechart.js_ thus becomes: 
+
+{% highlight javascript %}
+/*globals EurekaJView */
+
+EurekaJView.statechart = SC.Statechart.create({
+    rootState: SC.State.design({
+        substatesAreConcurrent: YES,
+
+        showingTreePanel: SC.State.plugin('EurekaJView.showingTreePanel'),
+
+		showingChartPanel: SC.State.plugin('EurekaJView.showingChartPanel'),
+
+        showingInformationPanel: SC.State.plugin('EurekaJView.showingInformationPanel'),
+
+        showingTopPanel: SC.State.plugin('EurekaJView.showingTopPanel')
+    })
+});
+{% endhighlight %}
+
+
+The important things to notice in the above code is that each of the four states are extracted into their own javascript files, as well as all states that are defined as children of the _rootState_ are defined as concurrent using the *substatesAreConcurrent: YES* flag.
+
+Neither the showingTreePanel and the showingChartPanel states are complex, so we will instead have a look at the two states "showingTopPanel" and "showingInformationPanel". In the top panel there is a button on the far right that will allow the user to enter the applications administration panel. When the user clicks the "Administration panel" button, the administration panel is displayed in a modal panel. Once inside the modal panel, the user is able to leave the panel by clicking on a "Hide Administration Panel" button. In the above scenario we have described two states, the top panels initial "ready" state, as well as the "showingAdministrationPanel" state. Each state therefore has their own action, as depicted in the diagram below. 
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_5.png"/></div>
+
+To view the implementation details for the *showingTopPanel* state, we therefore have to look at the source for both the *showingTopPanel.js* and the *showingAdministrationPanel.js* file. showingTopPanel.js: 
+
+{% highlight javascript %}
+EurekaJView.showingTopPanel = SC.State.extend({
+	initialSubstate: 'ready',
+	
+	enterState: function() {
+        EurekaJView.mainPage.get('topView').set('isVisible', YES);
+    },
+
+    exitState: function() {
+        EurekaJView.mainPage.get('topView').set('isVisible', NO);
+    },
+
+	ready: SC.State.design({
+		showAdministrationPaneAction: function() {
+	        EurekaJView.EurekaJStore.find(EurekaJView.ALERTS_QUERY);
+	        EurekaJView.EurekaJStore.find(EurekaJView.ADMINISTRATION_TREE_QUERY);
+	        EurekaJView.EurekaJStore.find(EurekaJView.INSTRUMENTATION_GROUPS_QUERY);
+	        EurekaJView.EurekaJStore.find(EurekaJView.EMAIL_GROUPS_QUERY);
+
+	        EurekaJView.updateAlertsAction();
+	        EurekaJView.updateInstrumentationGroupsAction();
+	        EurekaJView.updateEmailGroupsAction();
+	        this.gotoState('showingAdminPanel');
+	    },
+	}),
+
+    showingAdminPanel: SC.State.plugin('EurekaJView.showingAdminPanel')
+});
+{% endhighlight %}
+
+Here, we see that the showingTopPanel state has an initial substate "ready". *showingTopPanel* sets up the view for the state in the enter and exit functions by toggling the visibility of the top panel itself. The *ready* state does not have any enter or exit logic, but it has a single action *showAdiministrationPanelAction* defined that will ensure that data required for the administration panel is fetched from the server before moving on to the *showingAdminPanel* state. As the last line suggests, the *showingAdminPanel* state is defined in its own file *showingAdminPanel.js*. 
+
+{% highlight javascript %}
+EurekaJView.showingAdminPanel = SC.State.extend({
+	hideAdministrationPaneAction: function() {
+        this.gotoState('ready');
+    },
+
+	enterState: function() {
+        EurekaJView.mainPage.get('adminPanelView').append();
+    },
+
+    exitState: function() {
+        EurekaJView.mainPage.get('adminPanelView').remove();
+    }
+});
+{% endhighlight %}
+
+Here we can see that the *EurekaJView.showingAdminPanel* state will append and remove the admin modal panel upon state entry and exit. It also has a single action defined that will return to the "ready" state. Note that with this approach you never have to explicitly call code to either append or remove the *adminPanelView* from the application, this is done implicitly by letting the state take care of state setup and state teardown. By now, you are hopefully starting to see a pattern in the statechart approach, as well as starting to see the benefit of designing your GUI application around statecharts. I wont bore you with the implementation details of every state, as they are all structured in a similar manner. I will however, leave you with a diagram of the final statechart for the EurekaJ application. If you do want to have a look at the source code, though, EurekaJ is open sources with the GPLv2 license, and the source code is available from <a href="https://github.com/joachimhs/EurekaJ">GitHub</a>. 
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_6.png"/></div>
