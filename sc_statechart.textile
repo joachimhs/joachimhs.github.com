@@ -65,7 +65,7 @@ EurekaJView.statechart = SC.Statechart.create({
 
         showingTreePanel: SC.State.plugin('EurekaJView.showingTreePanel'),
 
-		showingChartPanel: SC.State.plugin('EurekaJView.showingChartPanel'),
+        showingChartPanel: SC.State.plugin('EurekaJView.showingChartPanel'),
 
         showingInformationPanel: SC.State.plugin('EurekaJView.showingInformationPanel'),
 
@@ -87,7 +87,7 @@ To view the implementation details for the *showingTopPanel* state, we therefore
 EurekaJView.showingTopPanel = SC.State.extend({
 	initialSubstate: 'ready',
 	
-	enterState: function() {
+    enterState: function() {
         EurekaJView.mainPage.get('topView').set('isVisible', YES);
     },
 
@@ -95,19 +95,19 @@ EurekaJView.showingTopPanel = SC.State.extend({
         EurekaJView.mainPage.get('topView').set('isVisible', NO);
     },
 
-	ready: SC.State.design({
-		showAdministrationPaneAction: function() {
-	        EurekaJView.EurekaJStore.find(EurekaJView.ALERTS_QUERY);
-	        EurekaJView.EurekaJStore.find(EurekaJView.ADMINISTRATION_TREE_QUERY);
-	        EurekaJView.EurekaJStore.find(EurekaJView.INSTRUMENTATION_GROUPS_QUERY);
-	        EurekaJView.EurekaJStore.find(EurekaJView.EMAIL_GROUPS_QUERY);
+    ready: SC.State.design({
+    	showAdministrationPaneAction: function() {
+			EurekaJView.EurekaJStore.find(EurekaJView.ALERTS_QUERY);
+			EurekaJView.EurekaJStore.find(EurekaJView.ADMINISTRATION_TREE_QUERY);
+			EurekaJView.EurekaJStore.find(EurekaJView.INSTRUMENTATION_GROUPS_QUERY);
+			EurekaJView.EurekaJStore.find(EurekaJView.EMAIL_GROUPS_QUERY);
 
-	        EurekaJView.updateAlertsAction();
-	        EurekaJView.updateInstrumentationGroupsAction();
-	        EurekaJView.updateEmailGroupsAction();
-	        this.gotoState('showingAdminPanel');
-	    },
-	}),
+			EurekaJView.updateAlertsAction();
+			EurekaJView.updateInstrumentationGroupsAction();
+			EurekaJView.updateEmailGroupsAction();
+			this.gotoState('showingAdminPanel');
+    	}
+    }),
 
     showingAdminPanel: SC.State.plugin('EurekaJView.showingAdminPanel')
 });
@@ -121,7 +121,7 @@ EurekaJView.showingAdminPanel = SC.State.extend({
         this.gotoState('ready');
     },
 
-	enterState: function() {
+    enterState: function() {
         EurekaJView.mainPage.get('adminPanelView').append();
     },
 
