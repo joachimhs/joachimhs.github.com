@@ -8,9 +8,7 @@ h2. About Me
 
 My name is Joachim Haagen Skeie. On a daily basis I work as a senior IT consultant at <a href="http://www.kantega.no/">Kantega</a>. I hold a Masters degree in Information Technology from <a href="http://www.qut.edu.au/">Queensland University of Technology</a> in Brisbane, Australia. I have worked as a Software Engineer since july 2007 in various positions ranging from developer, Scrum Master and Software Architect. I am a certified ScrumMaster and have primarily worked on large-scale Java applications providing automatic store replenishment for Norways largest retailer. I have received very good feedback from both colleages, leaders and customers, as can be seen from my <a href="http://no.linkedin.com/pub/joachim-haagen-skeie/11/893/78b">LinkedIn profile</a>.</p>
 
-I am a strong believer in Open Source, and are involved in a number of Open Source projects; <a href="http://www.kenai.com/projects/btrace">Btrace</a>, <a href="http://eurekaj.haagen.name">EurekaJ</a> and <a href="http://code.google.com/p/jsflot">JSFlot</a>.
-	
-I am currently involved as a commiter to in the following Open Source Software: 
+I am a strong believer in Open Source, and are involved as a committer to a number of Open Source projects:
 
 * <a href="http://eurekaj.haagen.name">EurekaJ Profiler</a> - A Profiling tool for Java applications, integrated with BTrace
 * <a href="http://kenai.com/projects/btrace">BTrace</a> - A safe, dynamic tracing tool for the Java platform. 
