@@ -12,9 +12,10 @@ I am a strong believer in Open Source, and are involved in a number of Open Sour
 	
 I am currently involved as a commiter to in the following Open Source Software: 
 
-* <a href="http://eurekaj.haagen.naem">EurekaJ Profiler</a> - A Profiling tool for Java applications, integrated with BTrace
+* <a href="http://eurekaj.haagen.name">EurekaJ Profiler</a> - A Profiling tool for Java applications, integrated with BTrace
 * <a href="http://kenai.com/projects/btrace">BTrace</a> - A safe, dynamic tracing tool for the Java platform. 
 * <a href="http://code.google.com/p/jsflot">JSFlot</a> - A JavaServer Faces charting library based on Flotr
+* <a href="https://github.com/joachimhs/JWireReplay">JWireReplay</a> - JWireReplay will be a tool that is able to replay HTTP traffic that is captured with the tool tcpdump.
 
 I am also a board member of <a href="http://www.java.no/">JavaBin</a> - The Java User Group in Norway. 
 	
