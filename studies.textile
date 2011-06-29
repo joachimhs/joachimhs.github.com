@@ -51,7 +51,8 @@ Bachelor graden involverer et dobbelt emneområde med vekt på både Systemering
 \- Design og implementering av komplisert programvare&nbsp;
 \- Operativsystemer, system programmering og dokumentasjon
 
-<div>Course entry: 01 Feb 2002
+<div>
+Course entry: 01 Feb 2002
 Course completion: END 2004
 Course status: COMPLETED
 Major: Data Communications/Software Engineering
