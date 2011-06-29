@@ -60,6 +60,7 @@ Total credit points achieved: 288
 Home Campus: GARDENS POINT
 
 *2002 Semester 1*
+
 table(#table){border:2px solid black;}.
 |_. Unit |_. Name |_. Credit points |_. Result |_. Unit Status |
 | ITB106 | FOUNDATION OF COMPUTING | 12 | 5	CREDIT | COMPLETED |
@@ -68,6 +69,7 @@ table(#table){border:2px solid black;}.
 | ITB412 | TECHNOLOGY OF INFORMATION SYSTEMS | 12 | 4	PASS | COMPLETED |
 
 *2002 Semester 2*
+
 table(#table){border:2px solid black;}.
 |_. Unit |_. Name |_. Credit points |_. Result |_. Unit Status |
 | ITB107 | PROGRAMMING LABORATORY | 12 | 6	DISTINCTION | COMPLETED |
@@ -76,6 +78,7 @@ table(#table){border:2px solid black;}.
 | ITB510 | DATA COMMUNICATIONS | 12 | 4	PASS | COMPLETED |
 
 *2003 Semester 1*
+
 table(#table){border:2px solid black;}.
 |_. Unit |_. Name |_. Credit points |_. Result |_. Unit Status |
 | ITB420 | COMPUTER ARCHITECTURE | 12 | 4	PASS | COMPLETED |
@@ -84,6 +87,7 @@ table(#table){border:2px solid black;}.
 | ITB524 | INTERNETWORKING | 12 | 4	PASS | COMPLETED |
 
 *2003 Semester 2*
+
 table(#table){border:2px solid black;}.
 |_. Unit |_. Name |_. Credit points |_. Result |_. Unit Status |
 | ITB424 | SOFTWARE ENGINEERING PRINCIPLES | 12 | 6	DISTINCTION | COMPLETED |
@@ -92,6 +96,7 @@ table(#table){border:2px solid black;}.
 | ITB529 | NETWORK SERVICES | 12 | 4	PASS | COMPLETED |
 
 *2004 Semester 1*
+
 table(#table){border:2px solid black;}.
 |_. Unit |_. Name |_. Credit points |_. Result |_. Unit Status |
 | ITB262 | E-COMMERCE TECHNOLOGIES | 12 | 6	DISTINCTION | COMPLETED |
@@ -100,6 +105,7 @@ table(#table){border:2px solid black;}.
 | ITB625 | NETWORK ADMINISTRATION | 12 | 4	PASS | COMPLETED |
 
 *2004 Semester 2*
+
 table(#table){border:2px solid black;}.
 |_. Unit |_. Name |_. Credit points |_. Result |_. Unit Status |
 | ITB263 | WEB INTELLIGENCE FOR E-COMMERCE | 12 | 6	DISTINCTION | COMPLETED |
