@@ -3,11 +3,11 @@ title: SproutCore Statecharts
 layout: localmaster
 ---
 
-In its most simple form statecharts is a way to structure your application into logical states. In reality a statechart does not need to be implemented in code, but it makes it easier to comply to the defined statechart if you are able to create or use a framework that defines what is possible to do witin a state, how the application can transition from one state to another and finally what needs to be set up and torn down on state entry and state exit. From version 1.5 and onwards of SproutCore, there is a fantastic Statechart framework built right into the library itself conveniently called SC.Statechart.
+In its most simple form statecharts is a way to structure your application into logical states. In reality a statechart does not need to be implemented in code, but it makes it easier to comply to the defined statechart if you are able to create or use a framework that defines what is possible to do within a state, how the application can transition from one state to another and finally what needs to be set up and torn down upon state entry and state exit. From version 1.5 and onwards of SproutCore, there is a fantastic Statechart framework built right into the library itself conveniently called SC.Statechart.
 
 h3. To statechart or not to statechart ?
 
-For me there are a couple of main reasons for using statecharts. First fo all the fact that you take time to sit down and think about your applications possible states makes you also think long and hard about the actual desing of your application. Splitting a large application into logical (and smaller) states also makes the task of breaking functional requirements down into manageable parts easier when the time comes to plan and develop the application. And as a final bonus you end up with a finished application that has one killer feature: *separation of concerns between application domains*. That last part alone should make you want to invest in using statecharts for your application: cleaner code and less spaghetti. 
+For me there are a couple of main reasons for using statecharts. First of all the fact that you take time to sit down and think about your applications possible states makes you also think long and hard about the actual design of your application. Splitting a large application into logical (and smaller) states also makes the task of breaking functional requirements down into manageable parts easier when the time comes to plan and develop the application. And as a final bonus you end up with a finished application that has one killer feature: *separation of concerns between application domains*. That last part alone should make you want to invest in using statecharts for your application: cleaner code and less spaghetti. 
 
 h3. The state of the game
 
@@ -15,16 +15,118 @@ There are many ways to structure a statechart application. The statechart needs 
 
 There are a number of key factors that needs to be included in each state, so that the states can be combined into a statechart. 
 
-* A single state needs to have exactly one clearly defined entrypoint
-* A single state needs to have at least one clearly defined exitpoint
+* A single state needs to have exactly one clearly defined entry point
+* A single state needs to have at least one clearly defined exit point (the possible transitions available)
 * A single state needs to be able to set up everything required within that state upon state entry
 * A single state needs to be able to tear down anything that is state-specific upon state entry
 
-Notice that in the above list, no state needs to know about any other states. Of course, there is an exeption to this rule when states are nested. If you use nested states then you also need to adhere to the following rule:
+Note that the above can be considered my guidelines. Its most certainly possible to brake any of the above requirements inside your statechart implementation, however be prepared that the end result might be messy/spaghetti code, no clear separation of concerns or worse, both. As an added bonus, breaking your application down into logical states and implementing your SproutCore application using SC.statechart, you will also be able to build an application where the routes that the user can travel through your application is made explicit in both *design and code*. 
 
-* A nested state only needs to know about one other state, its parent state
+h3. Statecharts and the MVC model
 
-Note that the above can be considered my guidelines. Its most certainly possible to brake any of the above requirements inside the SC Statechart code, however be prepared that the end result is messy/spaghetti code, no clear separation of concerns or worse, both. There are many code examples online where each state has defined which other states that it can transition to. I agree that this should be made very clear in the diagram-form of the statechart, but personally, I like to place the state transitions outside of the statechart itself. The reason for this is lies in the following assumptions for GUI applications: 
+Since Statecharts will make up a large portion of you applications architecture, where does it fit into the SproutCore MVC model, and will a Statechart-built application really be something like an MVCS (Model-View-Controller-Statechart) model ? The answer to the first question is that Statecharts fits in beautifully with the SC MVC model. The answer to the MVCS question is as it should be: it depends on your viewpoint. 
 
-* Any application state transition is possible at any time during the applications lifetime
+Without statecharts, the SproutCore MVC model looks like the diagram below. 
 
+<div style="text-align: center;"><img src="/images/ria_mvc_4.png"/></div>
+
+In my opinion a statechart belongs within the Controller-portion of the MVC model, and might look something like the diagram below. Note that both the "Action" and the "Statechart" portions of the Controller-layer in the diagram below is application-wide, while the "Controller" portion of the Controller-layer refers to the controller that the view binds to (usually a SC.ListController, SC.ItemController, etc.,  or a custom made controller). 
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_1.png"/></div>
+
+h3. Implementing a statechart application
+
+Now, lets looks at the actual implementation of a Statechart application. For this blog post I will be looking at a portion of the EurekaJ Statechart implementation. In EurekaJ the actual login and authentication of the application is handled outside of SproutCore (by Spring Security on the Java backend), and so we will make the assumption that the user already is pre-authenticated. Before we get started though, there are a few key symbols that you need to get acquainted with. 
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_2.png"/></div>
+
+To get started discussing the statechart implementation, lets first describe how the Graphical User Interface works in the EurekaJ application. The application is split into four main parts. The top-hand panel is responsible for displaying the application logo, as well as a toolbar. The toolbar currently only has a single item, a button that will activate the administration panel. On the left hand side of the application there is a sidebar responsible for showing a tree-structure consisting of all nodes that the application is able to display visual charts for. On the right hand side there is an information panel that currently has two responsibilities: letting the user select which time-period to display charts for, as well as listing any recent alerts triggered by the system. In the center, the main area of the application, the application will display any of the charts selected in the tree menu to the left, for the time period chosen in the time-period panel to the right. Schematically the application looks like the diagram below.
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_3.png"/></div>
+
+We can immediately identify 6 states that concurrently needs to be displayed on the screen, each of which needs to be active and ready for user input. For my application I decided to make the four state "showingTopPanel", "showingTreePanel", "showingChartPanel" and "showingInformationPanel" direct concurrent states of the *rootState*.
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_4.png"/></div>
+
+The statechart implementation in the file _core_statechart.js_ thus becomes: 
+
+{% highlight javascript %}
+/*globals EurekaJView */
+
+EurekaJView.statechart = SC.Statechart.create({
+    rootState: SC.State.design({
+        substatesAreConcurrent: YES,
+
+        showingTreePanel: SC.State.plugin('EurekaJView.showingTreePanel'),
+
+        showingChartPanel: SC.State.plugin('EurekaJView.showingChartPanel'),
+
+        showingInformationPanel: SC.State.plugin('EurekaJView.showingInformationPanel'),
+
+        showingTopPanel: SC.State.plugin('EurekaJView.showingTopPanel')
+    })
+});
+{% endhighlight %}
+
+
+The important things to notice in the above code is that each of the four states are extracted into their own javascript files, as well as all states that are defined as children of the _rootState_ are defined as concurrent using the *substatesAreConcurrent: YES* flag.
+
+Neither the showingTreePanel and the showingChartPanel states are complex, so we will instead have a look at the state "showingTopPanel" in more detail. In the top panel there is a button on the far right that will allow the user to enter the applications administration panel. When the user clicks the "Administration panel" button, the administration panel is displayed inside a modal panel. Once inside the modal panel, the user is able to leave the panel by clicking on a "Hide Administration Panel" button. In the above scenario we have described two states, the top panels initial "ready" state, as well as the "showingAdministrationPanel" state. Each state therefore has one action each, as depicted in the diagram below. 
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_5.png"/></div>
+
+To view the implementation details for the *showingTopPanel* state, we therefore have to look at the source for the *showingTopPanel.js* file.
+
+{% highlight javascript %}
+EurekaJView.showingTopPanel = SC.State.extend({
+	initialSubstate: 'ready',
+	
+    enterState: function() {
+        EurekaJView.mainPage.get('topView').set('isVisible', YES);
+    },
+
+    exitState: function() {
+        EurekaJView.mainPage.get('topView').set('isVisible', NO);
+    },
+
+    ready: SC.State.design({
+    	showAdministrationPaneAction: function() {
+			EurekaJView.EurekaJStore.find(EurekaJView.ALERTS_QUERY);
+			EurekaJView.EurekaJStore.find(EurekaJView.ADMINISTRATION_TREE_QUERY);
+			EurekaJView.EurekaJStore.find(EurekaJView.INSTRUMENTATION_GROUPS_QUERY);
+			EurekaJView.EurekaJStore.find(EurekaJView.EMAIL_GROUPS_QUERY);
+
+			EurekaJView.updateAlertsAction();
+			EurekaJView.updateInstrumentationGroupsAction();
+			EurekaJView.updateEmailGroupsAction();
+			this.gotoState('showingAdminPanel');
+    	}
+    }),
+
+    showingAdminPanel: SC.State.plugin('EurekaJView.showingAdminPanel')
+});
+{% endhighlight %}
+
+Here, we see that the showingTopPanel state has an initial substate *ready*. *showingTopPanel* sets up the view for the state in the enter functions and tears down the state-specific views in the exit function, by toggling the visibility of the top panel itself. The *ready* state does not have any enter or exit logic, but it has a single action *showAdiministrationPanelAction* defined that will ensure that data required for the administration panel is fetched from the server before moving on to the *showingAdminPanel* state. As the last line suggests, the *showingAdminPanel* state is defined in its own file *showingAdminPanel.js*. 
+
+{% highlight javascript %}
+EurekaJView.showingAdminPanel = SC.State.extend({
+	hideAdministrationPaneAction: function() {
+        this.gotoState('ready');
+    },
+
+    enterState: function() {
+        EurekaJView.mainPage.get('adminPanelView').append();
+    },
+
+    exitState: function() {
+        EurekaJView.mainPage.get('adminPanelView').remove();
+    }
+});
+{% endhighlight %}
+
+Here we can see that the *EurekaJView.showingAdminPanel* state will append and remove the admin modal panel upon state entry and exit. It also has a single action defined that will return to the "ready" state. Note that with this approach you never have to explicitly call code to either append or remove the *adminPanelView* from the application, this is done implicitly by letting the state take care of state setup and state teardown. If the administration panel gets additional requirements later on regarding state entry and exit it is easy to know just where to go inside the code to make the change. 
+
+By now, you are hopefully starting to see a pattern with the statechart approach to state specification and management within a RIA application, as well as starting to see the benefit of designing your GUI application around statecharts. I wont bore you with the implementation details of the other states, as they are all structured in a similar manner. I will however, leave you with a diagram of the final statechart for the EurekaJ application. If you do want to have a look at the source code, though, EurekaJ is open sources with the GPLv2 license, and the source code is available from <a href="https://github.com/joachimhs/EurekaJ">GitHub/joachimhs/EurekaJ</a>. There is also an online demo of the EurekaJ application available at <a href="http://eurekaj-ec2.haagen.name/">http://eurekaj-ec2.haagen.name/</a>, where you can log in with the username 'user' and the password 'user'. 
+
+<div style="text-align: center;"><img src="/images/sc_statecharts_6.png"/></div>
