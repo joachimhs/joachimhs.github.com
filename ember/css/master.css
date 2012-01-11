@@ -1,0 +1,128 @@
+#menu{ margin:0px; padding:0px; list-style:none; color:#fff; line-height:45px; display:inline-block; 
+ z-index:1000; text-align: left;}
+#menu a { color:#eee; text-decoration:none; } 
+#menu > li {background:#366263 none repeat scroll 0 0; cursor:pointer; float:left; position:relative; 
+    padding:0px 10px;} 
+#menu > li a:hover {color:#7FCDFE;} 
+#menu .logo {background:transparent none repeat scroll 0% 0%; padding:0px; 
+    background-color:Transparent;} 
+/* sub-menus*/ 
+#menu ul { padding:0px; margin:0px; display:block; display:inline;} 
+#menu li ul { position:absolute; left:-30px; top:0px; margin-top:45px; width:200px; line-height:16px; 
+    background-color:#366263; color:#eee; /* for IE */ display:none; z-index: 850; 
+	-moz-border-radius-bottomright: 25px;
+	border-bottom-right-radius: 25px;
+	-moz-border-radius-bottomleft: 25px;
+	border-bottom-left-radius: 25px;
+	} 
+#menu li:hover ul { display:block;} 
+#menu li ul li{ display:block; margin:5px 20px; padding: 5px 0px;  border-top: dotted 1px #fff; 
+    list-style-type:none; } 
+#menu li ul li:first-child { border-top: none; } 
+#menu li ul li a { display:block; color:#eee; } 
+#menu li ul li a:hover { color:#7FCDFE; } 
+/* main submenu */ 
+#menu #main { left:0px; top:-20px; padding-top:20px; width: 298px; background-color:#7cb7e3; color:#fff; border: 1px solid #6092b9;
+    z-index:999;} 
+.end {
+	width: 10px;
+	border-bottom-right-radius: 25px;
+	-moz-border-radius-bottomleft: 25px;
+	z-index: 1000;
+}
+/* search */ 
+.searchContainer div { background-color:#fff; display:inline; padding:5px;} 
+.searchContainer input[type="text"] {border:none;} 
+.searchContainer img { vertical-align:middle;}
+
+#mainArea {
+	border-top-right-radius: 25px;
+	-moz-top-radius-bottomleft: 25px;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	padding: 15px;
+	margin-top: 25px;
+	background: #fff;
+	text-align: left;
+	position: absolute;
+	top: 40px;
+	bottom: 0px;
+	left: 45px;
+	right: 45px;
+	z-index: 800;
+}
+
+/* tables */
+table.tablesorter {
+	font-family:arial;
+    padding: 0px;
+	width: 100%;
+	text-align: left;
+    border: 1px solid #000;
+    font-size: 8pt;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #366263;
+    color: #fff;
+	padding: 4px;
+}
+
+table.tablesorter caption {
+    background-color: #366263;
+    color: #fff;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top-right-radius: 80px;
+	-moz-top-radius-bottomleft: 25px;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 80px;
+	font-size: 12pt;
+	padding: 4px;
+}
+
+table.tablesorter thead tr .header {
+	background-image: url('../img/bg.gif');
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+    border-bottom: 2px solid #009999;
+    border-top: 2px solid #fff;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url('../img/asc.gif');
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url('../img/desc.gif');
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+    background-color: #8dbdd8;
+    color: #000;
+}
+
+table.benkTabell {
+
+}
+
+table.benkTabell caption {
+    width: 75%;
+}
+
+div.benk {
+    width: 32%;
+    float:left;
+    margin-right: 10px;
+}
+
+.floatleft {
+    float:left;
+}

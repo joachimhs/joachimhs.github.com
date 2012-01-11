@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>index</title>
+	<link rel="stylesheet" href="css/master.css" type="text/css" charset="utf-8">
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Joachim Haagen Skeie">
+	<script type="text/x-handlebars" data-template-name="header-template">
+		<ul id="menu">
+			<li class="logo"><img style="float:left;" alt="" src="img/menu_left.png"/>
+				<ul id="main"><li>Velkomen til prototypen for Konfliktrådets nye saksbehandlingsløsning!</li></ul>
+			</li>
+		
+			{{#each KR.MenuItemController.content }} <li><a href="#">{{ menuName }}</a> 
+				{{#if hasSubItems}}
+					<ul>
+					{{#each subItems}}
+                        <li><a href="#" {{bindAttr onclick="menuActionString" }}>{{ menuName }}</a></li>
+					{{/each}}
+					</ul>
+				{{/if}}
+				</li>
+			{{/each}}
+		
+		<li class="searchContainer"><div><input type="text" id="searchField" value="Hurtigsøk" />
+			<img src="img/magnifier.png" alt="Search" onclick="alert('You clicked on search button')" /></div> 
+		    <ul id="search"> 
+		        <li><label><input id="cbxAll" type="checkbox" checked/>Alle</label></li>
+		        <li><label><input id="Articles" type="checkbox" />Saksnummer</label></li> 
+		        <li><label><input id="Tutorials" type="checkbox" />Saksnavn</label></li> 
+		        <li><label><input id="Reviews" type="checkbox" />Notatfelt</label></li> 
+		        <li><label><input id="Resources" type="checkbox" />Sakstekst</label></li> 
+		    </ul> 
+		</li>
+		<li class="end">&nbsp;</li>
+		</ul>
+	</script>
+
+    <script type="text/x-handlebars" data-template-name="table-template">
+        <table {{bindAttr id="tableid"}} class="tablesorter benkTabell">
+            {{#with content}}
+            <caption style="width: 80%;">{{ header }}</caption>
+            <thead>
+                <tr>
+                    {{#each columnHeaders}}
+                        <th>{{ header }}</th>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each rows}}
+                    <tr>
+                        {{#each columns}}
+                            <td>{{columnData}}</td>
+                        {{/each}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        {{/with}}
+        </table>
+    </script>
+
+
+
+
+
+
+</head>
+<body bgcolor="#555154">
+    <div id="pageContents" style="width: 1200px; text-align: center;">
+        <script type="text/x-handlebars">
+            {{view Em.View templateName="header-template" menuBinding="KR.MenuItemController.content" id="KRHeader" }}
+        </script>
+
+        <div id="mainArea">
+                  <script type="text/x-handlebars">
+                    {{#with KR.RegistrereSakController.content}}
+                        <table>
+                        {{#each felter}}
+                            <tr>
+                                <td>{{feltNavn}}: </td>
+                                <td>{{{view Ember.TextField valueBinding="feltVerdi"}}</td>
+                                <td>{{feltType}}</td>
+                        </tr>
+                        {{/each}}
+                    </table>
+
+                    <hr>
+                    {{#each felter}}
+                        {{feltNavn}}: {{feltVerdi}}
+                    {{/each}}
+                    {{/with}}
+                </script>
+        </div>
+    </div>
+
+<script src="scripts/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="scripts/jquery.tablesorter.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/ember-0.9.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app/app.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app/tableView.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app/fixtureData.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app/main.js" type="text/javascript" charset="utf-8"></script>
+    <script src="app/stateManager.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>

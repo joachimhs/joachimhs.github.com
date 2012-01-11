@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>index</title>
+	<link rel="stylesheet" href="css/master.css" type="text/css" charset="utf-8">
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Joachim Haagen Skeie">
+    <script type="text/x-handlebars" data-template-name="sample">
+  selectedvalue: {{value}}
+</script>
+</head>
+<body bgcolor="#555154">
+
+
+<script type="text/x-handlebars">
+  Raw: {{App.model.value}}<br />
+  Card: {{view EmberRouting.View currentViewBinding="App.router.currentView"}}
+    <br/><br />
+  <button type="button" onclick="App.router.set('current', 'home')">Home (has binding)</button>
+  <button type="button" onclick="App.router.set('current', 'main')">Main</button>
+  <button type="button" onclick="App.router.set('current', 'accounts/5')">Account</button>
+  <br />
+  <button type="button" onclick="App.model.set('value', 'new value')">Set Binding</button>
+</script>
+
+    <script src="scripts/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/ember-0.9.3.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+// routing code
+        window.EmberRouting = {};
+
+        EmberRouting.View = Ember.View.extend({
+          render: function(buffer) {
+            var view = this.getPath("currentView");
+            view.renderToBuffer(buffer);
+          },
+
+          updateContentView: function() {
+            this.rerender();
+          }.observes("currentView")
+        });
+
+        EmberRouting.Router = Ember.Object.extend({
+          notFoundView: Ember.View.create({
+            template: function() {
+              return "Page not found";
+            }
+          }),
+
+          current: "main",
+
+          currentView: function() {
+            var route = this.routeForPath(this.get("current"));
+
+            return route ? route.call(this) : this.get("notFoundView");
+          }.property("current", "routes").cacheable(),
+
+          routeForPath: function(path) {
+            var routes = this.get("mappedRoutes"),
+                route = routes.find(function(item) { return item.expression.test(path); })
+                self = this;
+
+            var wrapper = function() {
+              return route.route.call(this, {id: "test"}); // no real params yeth, will be implemented later
+            };
+
+            return route ? wrapper : null;
+          },
+
+          mappedRoutes: function() {
+            var mapped = [], routes = this.get("routes"), path, route, matcher;
+
+            for (path in routes) {
+              route = routes[path];
+              matcher = this.matcherForRoute(path);
+
+              mapped.push({expression: matcher.expression, route: route, params: matcher.params, originalPath: path});
+            }
+
+            return mapped;
+          }.property("routes").cacheable(),
+
+          matcherForRoute: function (path) {
+            var parts = path.split("/"),
+                expression = new RegExp(path.replace(/:[^\/]+/g, "(.+?)")),
+                params = [];
+
+            return {expression: expression, params: params};
+          }
+        });
+
+// sample app code
+
+        window.App = Ember.Application.create();
+
+        App.SampleView = Ember.View.extend({
+          value: "a",
+          templateName: "sample"
+        });
+
+        App.router = EmberRouting.Router.create({
+          routes: {
+            "home": function() {
+              return App.SampleView.create({valueBinding: "App.model.value"});
+            },
+
+            "main": function() {
+              return App.SampleView.create({value: "main"});
+            },
+
+            "accounts/:id": function(params) {
+              return App.SampleView.create({value: "accounts " + params.id});
+            }
+          }
+        });
+
+        App.model = Ember.Object.create({value: "initial"});
+</script>
+    </body>
+</html>
