@@ -64,7 +64,24 @@
     </script>
 
 
+    <script type="text/x-handlebars" data-template-name="html-felt-template">
+        {{#with content}}
+            <table>
+            {{#each felter}}
+                <tr>
+                    <td>{{feltNavn}}: </td>
+                    <td>{{{view Ember.TextField valueBinding="feltVerdi"}}</td>
+                    <td>{{feltType}}</td>
+            </tr>
+            {{/each}}
+        </table>
 
+        <hr>
+        {{#each felter}}
+            {{feltNavn}}: {{feltVerdi}}
+        {{/each}}
+        {{/with}}
+    </script>
 
 
 
@@ -76,24 +93,7 @@
         </script>
 
         <div id="mainArea">
-                  <script type="text/x-handlebars">
-                    {{#with KR.RegistrereSakController.content}}
-                        <table>
-                        {{#each felter}}
-                            <tr>
-                                <td>{{feltNavn}}: </td>
-                                <td>{{{view Ember.TextField valueBinding="feltVerdi"}}</td>
-                                <td>{{feltType}}</td>
-                        </tr>
-                        {{/each}}
-                    </table>
 
-                    <hr>
-                    {{#each felter}}
-                        {{feltNavn}}: {{feltVerdi}}
-                    {{/each}}
-                    {{/with}}
-                </script>
         </div>
     </div>
 
